@@ -32,7 +32,11 @@ npm run build     # production build
 npm run preview   # preview production build
 ```
 
-## Notes
+## Linting & Formatting
 
-- Event column stays single-line for scanning; expanded view uses `JSON.stringify(event, null, 2)` for readability.
-- Bad NDJSON lines are skipped; status surface tracks bytes loaded and errors.
+We use [Biome](https://biomejs.dev/) for linting, formatting, and import sorting.
+
+```bash
+npm run lint        # Check for lint/format issues
+npm run lint:fix    # Fix auto-fixable issues (format, sort imports, safe lint fixes)
+```
