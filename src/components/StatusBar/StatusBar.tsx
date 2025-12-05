@@ -33,13 +33,20 @@ export const StatusBar = ({
   onAbort,
   onRetry,
 }: StatusBarProps) => {
-  const { ttfr } = usePerformanceMetrics();
+  const { ttfb, ttfr } = usePerformanceMetrics();
 
   const progress = totalBytes ? Math.round((loadedBytes / totalBytes) * 100) : null;
 
   return (
     <Card padding="sm" className={styles.statusBar}>
       <div className={styles.metrics}>
+        {ttfb !== null && (
+          <span className={styles.metric}>
+            <span className={styles.label}>TTFB:</span>
+            <span className={styles.value}>{ttfb}ms</span>
+          </span>
+        )}
+
         {ttfr !== null && (
           <span className={styles.metric}>
             <span className={styles.label}>TTFR:</span>

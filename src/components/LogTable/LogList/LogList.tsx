@@ -14,8 +14,8 @@ interface Props {
 const SKELETON_ROW_COUNT = 10;
 
 export const LogList = ({ logs, isLoading = false }: Props) => {
-  const { recordFirstRender } = usePerformanceMetrics();
-  const hasRecordedFirstRender = useRef(false);
+  const { recordFirstByte, recordFirstRender } = usePerformanceMetrics();
+  const hasRecordedMetrics = useRef(false);
 
   const { containerRef, startIndex, endIndex, totalHeight, offsetY, setRowHeight } =
     useVirtualization({
@@ -25,11 +25,12 @@ export const LogList = ({ logs, isLoading = false }: Props) => {
     });
 
   useEffect(() => {
-    if (logs.length > 0 && !hasRecordedFirstRender.current) {
-      hasRecordedFirstRender.current = true;
+    if (logs.length > 0 && !hasRecordedMetrics.current) {
+      hasRecordedMetrics.current = true;
+      recordFirstByte();
       recordFirstRender();
     }
-  }, [logs.length, recordFirstRender]);
+  }, [logs.length, recordFirstByte, recordFirstRender]);
 
   const handleRowHeightChange = useCallback(
     (index: number) => (height: number) => {
@@ -62,6 +63,7 @@ export const LogList = ({ logs, isLoading = false }: Props) => {
                 <LogRow
                   key={`${log._time}-${actualIndex}`}
                   log={log}
+                  index={actualIndex}
                   onHeightChange={handleRowHeightChange(actualIndex)}
                 />
               );

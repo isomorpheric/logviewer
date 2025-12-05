@@ -1,8 +1,10 @@
 import { createContext, type ReactNode, useCallback, useContext, useState } from "react";
-import { measureTTFR } from "@/utils/performanceMarks";
+import { perf } from "@/utils";
 
 interface PerformanceMetricsContextValue {
+  ttfb: number | null;
   ttfr: number | null;
+  recordFirstByte: () => void;
   recordFirstRender: () => void;
 }
 
@@ -13,17 +15,25 @@ interface PerformanceMetricsProviderProps {
 }
 
 export function PerformanceMetricsProvider({ children }: PerformanceMetricsProviderProps) {
+  const [ttfb, setTTFB] = useState<number | null>(null);
   const [ttfr, setTTFR] = useState<number | null>(null);
+
+  const recordFirstByte = useCallback(() => {
+    setTTFB((current) => {
+      if (current !== null) return current;
+      return perf.getTTFB();
+    });
+  }, []);
 
   const recordFirstRender = useCallback(() => {
     setTTFR((current) => {
       if (current !== null) return current;
-      return measureTTFR();
+      return perf.getTTFR();
     });
   }, []);
 
   return (
-    <PerformanceMetricsContext.Provider value={{ ttfr, recordFirstRender }}>
+    <PerformanceMetricsContext.Provider value={{ ttfb, ttfr, recordFirstByte, recordFirstRender }}>
       {children}
     </PerformanceMetricsContext.Provider>
   );
