@@ -1,0 +1,12 @@
+.root {
+  display: flex;
+  flex-direction: column;
+  height: 100dvh;
+  justify-content: center;
+  align-items: center;
+}
+
+.title {
+  font-weight: 700;
+  text-align: center;
+}
