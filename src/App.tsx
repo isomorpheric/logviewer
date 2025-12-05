@@ -1,9 +1,9 @@
-import "./App.css";
+import styles from "./App.module.css";
 
 function App() {
   return (
-    <main>
-      <h1>Clean Slate 🧼 </h1>
+    <main className={styles.root}>
+      <h1 className={styles.title}>Clean Slate 🧼 </h1>
     </main>
   );
 }
