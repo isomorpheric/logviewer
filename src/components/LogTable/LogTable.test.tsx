@@ -4,8 +4,8 @@ import type { LogEntry } from "@/types";
 import { LogTable } from "./LogTable";
 
 const mockLogs: LogEntry[] = [
-  { _time: "2021-08-02T07:40:00.000Z", message: "Log 1" },
-  { _time: "2021-08-02T07:40:01.000Z", message: "Log 2" },
+  { _time: 1627890000000, message: "Log 1" }, // 2021-08-02T07:40:00.000Z
+  { _time: 1627890001000, message: "Log 2" }, // 2021-08-02T07:40:01.000Z
 ];
 
 describe("LogTable", () => {

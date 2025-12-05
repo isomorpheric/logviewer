@@ -1,5 +1,6 @@
 import { useState } from "react";
 import type { LogEntry } from "@/types";
+import { formatTime } from "@/utils/formatTime";
 import styles from "./LogRow.module.css";
 
 interface Props {
@@ -18,6 +19,9 @@ export const LogRow = ({ log }: Props) => {
     navigator.clipboard.writeText(JSON.stringify(log, null, 2));
   };
 
+  // Format timestamp lazily only for visible rows
+  const formattedTime = formatTime(log._time);
+
   return (
     <div className={styles.row}>
       <button
@@ -26,7 +30,7 @@ export const LogRow = ({ log }: Props) => {
         onClick={toggleExpand}
         aria-expanded={isExpanded}
       >
-        <div className={styles.time}>{log._time}</div>
+        <div className={styles.time}>{formattedTime}</div>
         <div className={styles.message}>{JSON.stringify(log)}</div>
       </button>
       {isExpanded && (

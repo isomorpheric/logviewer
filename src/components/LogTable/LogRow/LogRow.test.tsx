@@ -4,7 +4,7 @@ import type { LogEntry } from "@/types";
 import { LogRow } from "./LogRow";
 
 const mockLog: LogEntry = {
-  _time: "2021-08-02T07:40:00.000Z",
+  _time: 1627890000000, // 2021-08-02T07:40:00.000Z
   message: "Test log message",
   level: "info",
 };
@@ -50,9 +50,10 @@ describe("LogRow", () => {
     });
 
     // Check for indentation (2 spaces) and newlines
+    // Note: _time is stored as a number (timestamp) in the raw data
     const content = pre.textContent || "";
     expect(content).toContain(
-      '{\n  "_time": "2021-08-02T07:40:00.000Z",\n  "message": "Test log message",\n  "level": "info"\n}'
+      '{\n  "_time": 1627890000000,\n  "message": "Test log message",\n  "level": "info"\n}'
     );
   });
 

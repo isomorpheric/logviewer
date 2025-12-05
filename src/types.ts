@@ -1,8 +1,13 @@
 import { z } from "zod";
 
+/**
+ * LogEntrySchema defines the shape of raw log entries.
+ * Note: _time is kept as a number (Unix timestamp in ms) for performance.
+ * Formatting to ISO 8601 happens lazily during render to optimize TTFB.
+ */
 export const LogEntrySchema = z
   .object({
-    _time: z.number().transform((val) => new Date(val).toISOString()),
+    _time: z.number(), // Unix timestamp in milliseconds
     cid: z.string().optional(),
     channel: z.string().optional(),
     level: z.string().optional(),
