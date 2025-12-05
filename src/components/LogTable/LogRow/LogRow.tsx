@@ -1,14 +1,17 @@
-import { useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import type { LogEntry } from "@/types";
 import { formatTime } from "@/utils/formatTime";
 import styles from "./LogRow.module.css";
 
 interface Props {
   log: LogEntry;
+  index?: number;
+  onHeightChange?: (height: number) => void;
 }
 
-export const LogRow = ({ log }: Props) => {
+export const LogRow = ({ log, onHeightChange }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const rowRef = useRef<HTMLDivElement>(null);
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
@@ -19,11 +22,28 @@ export const LogRow = ({ log }: Props) => {
     navigator.clipboard.writeText(JSON.stringify(log, null, 2));
   };
 
+  // Report height changes for virtualization
+  useLayoutEffect(() => {
+    if (!rowRef.current || !onHeightChange) return;
+
+    const observer = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+        onHeightChange(entry.contentRect.height);
+      }
+    });
+
+    observer.observe(rowRef.current);
+    // Report initial height
+    onHeightChange(rowRef.current.offsetHeight);
+
+    return () => observer.disconnect();
+  }, [onHeightChange]);
+
   // Format timestamp lazily only for visible rows
   const formattedTime = formatTime(log._time);
 
   return (
-    <div className={styles.row}>
+    <div ref={rowRef} className={styles.row}>
       <button
         type="button"
         className={styles.summary}
