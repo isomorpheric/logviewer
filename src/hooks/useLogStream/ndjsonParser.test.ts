@@ -1,4 +1,4 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { parseNDJSONChunk } from "./ndjsonParser";
 
 describe("ndjsonParser", () => {
@@ -25,11 +25,16 @@ describe("ndjsonParser", () => {
   });
 
   it("skips bad JSON lines", () => {
+    const warnSpy = vi.spyOn(console, "warn").mockImplementation(() => {});
+
     const chunk = '{"id":1}\nbadjson\n{"id":2}\n';
     const result = parseNDJSONChunk(chunk, "");
 
     expect(result.results).toEqual([{ id: 1 }, { id: 2 }]);
     expect(result.newBuffer).toBe("");
+    expect(warnSpy).toHaveBeenCalledOnce();
+
+    warnSpy.mockRestore();
   });
 
   it("handles empty lines gracefully", () => {

@@ -25,6 +25,7 @@ describe("useLogStream", () => {
     return {
       ok: true,
       body: stream,
+      headers: new Headers(),
     };
   };
 
@@ -80,7 +81,11 @@ describe("useLogStream", () => {
       },
     });
 
-    vi.mocked(fetch).mockResolvedValue({ ok: true, body: stream } as unknown as Response);
+    vi.mocked(fetch).mockResolvedValue({
+      ok: true,
+      body: stream,
+      headers: new Headers(),
+    } as unknown as Response);
 
     const { result, unmount } = renderHook(() => useLogStream("http://test.com"));
 
