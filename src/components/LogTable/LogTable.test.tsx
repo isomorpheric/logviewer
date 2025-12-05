@@ -32,6 +32,7 @@ describe("LogTable", () => {
   it("applies custom width and height", () => {
     renderWithProvider(<LogTable logs={[]} width={800} height="500px" />);
     const grid = screen.getByRole("grid");
-    expect(grid).toHaveStyle({ width: "800px", height: "500px" });
+    // Width/height is on the Card wrapper, not the grid
+    expect(grid.parentElement).toHaveStyle({ width: "800px", height: "500px" });
   });
 });

@@ -1,3 +1,4 @@
+import { Card } from "@/components/ui/Card";
 import type { LogEntry } from "@/types";
 import { LogList } from "./LogList";
 import styles from "./LogTable.module.css";
@@ -12,9 +13,11 @@ interface Props {
 
 export const LogTable = ({ logs, isLoading = false, width = "100%", height = "100%" }: Props) => {
   return (
-    <div role="grid" aria-label="Log Table" className={styles.root} style={{ width, height }}>
-      <LogTableHeader />
-      <LogList logs={logs} isLoading={isLoading} />
-    </div>
+    <Card padding="none" className={styles.cardWrapper} style={{ width, height }}>
+      <div role="grid" aria-label="Log Table" className={styles.root}>
+        <LogTableHeader />
+        <LogList logs={logs} isLoading={isLoading} />
+      </div>
+    </Card>
   );
 };
