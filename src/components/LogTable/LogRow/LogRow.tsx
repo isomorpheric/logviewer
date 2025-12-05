@@ -1,3 +1,4 @@
+import { clsx } from "clsx";
 import { useLayoutEffect, useRef, useState } from "react";
 import type { LogEntry } from "@/types";
 import { formatTime } from "@/utils/formatTime";
@@ -5,12 +6,14 @@ import styles from "./LogRow.module.css";
 
 interface Props {
   log: LogEntry;
+  index?: number;
   onHeightChange?: (height: number) => void;
 }
 
-export const LogRow = ({ log, onHeightChange }: Props) => {
+export const LogRow = ({ log, index = 0, onHeightChange }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const rowRef = useRef<HTMLDivElement>(null);
+  const isEven = index % 2 === 0;
 
   const toggleExpand = () => {
     setIsExpanded(!isExpanded);
@@ -42,7 +45,7 @@ export const LogRow = ({ log, onHeightChange }: Props) => {
   const formattedTime = formatTime(log._time);
 
   return (
-    <div ref={rowRef} className={styles.row}>
+    <div ref={rowRef} className={clsx(styles.row, isEven && styles.rowEven)}>
       <button
         type="button"
         className={styles.summary}
