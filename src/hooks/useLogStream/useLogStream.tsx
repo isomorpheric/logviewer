@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { LogEntry } from "@/types";
+import { markFetchStart } from "@/utils/performanceMarks";
 import { parseNDJSONChunk } from "./ndjsonParser";
 
 interface UseLogStreamResult {
@@ -30,6 +31,7 @@ export function useLogStream(url: string): UseLogStreamResult {
     const controller = new AbortController();
     abortControllerRef.current = controller;
 
+    markFetchStart();
     setIsLoading(true);
     setError(null);
     setLoadedBytes(0);
