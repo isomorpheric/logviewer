@@ -31,7 +31,7 @@ describe("useLogStream", () => {
   it("streams and parses logs successfully", async () => {
     const chunks = ['{"_time": 1, "message": "test1"}\n', '{"_time": 2, "message": "test2"}\n'];
 
-    vi.mocked(fetch).mockResolvedValue(mockStreamResponse(chunks) as any);
+    vi.mocked(fetch).mockResolvedValue(mockStreamResponse(chunks) as unknown as Response);
 
     const { result } = renderHook(() => useLogStream("http://test.com"));
 
@@ -49,7 +49,7 @@ describe("useLogStream", () => {
   it("handles chunked JSON", async () => {
     const chunks = ['{"_time": 1, "message":', ' "split"}\n'];
 
-    vi.mocked(fetch).mockResolvedValue(mockStreamResponse(chunks) as any);
+    vi.mocked(fetch).mockResolvedValue(mockStreamResponse(chunks) as unknown as Response);
 
     const { result } = renderHook(() => useLogStream("http://test.com"));
 
@@ -80,7 +80,7 @@ describe("useLogStream", () => {
       },
     });
 
-    vi.mocked(fetch).mockResolvedValue({ ok: true, body: stream } as any);
+    vi.mocked(fetch).mockResolvedValue({ ok: true, body: stream } as unknown as Response);
 
     const { result, unmount } = renderHook(() => useLogStream("http://test.com"));
 
