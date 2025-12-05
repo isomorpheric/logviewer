@@ -147,3 +147,10 @@ Lightweight, performance-focused React application using Vite. Rely on custom ho
 3. **Substring Search (Bonus)**: Add a lightweight filter bar before virtualization; debounce input and filter against single-line JSON strings.
 4. **Error Boundaries**: Wrap the list to catch JSON parse errors gracefully.
 5. **User Preferences**: Persist options like "Wrap Lines" or "Dark Mode" in `localStorage` if included.
+
+
+## 5. Things I'd like to add if I have extra time:
+
+- Error context for failed json lines, so they get saved and we can get them.
+- ExpandedRows context so that when you expand a row, scroll it off screen and then back to it,
+the open state is preserved. Currently it remounts in default state.
