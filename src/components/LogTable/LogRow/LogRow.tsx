@@ -26,7 +26,7 @@ export const LogRow = ({ log }: Props) => {
         onClick={toggleExpand}
         aria-expanded={isExpanded}
       >
-        <div className={styles.time}>{new Date(log._time).toISOString()}</div>
+        <div className={styles.time}>{log._time}</div>
         <div className={styles.message}>{JSON.stringify(log)}</div>
       </button>
       {isExpanded && (

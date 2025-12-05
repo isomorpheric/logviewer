@@ -2,7 +2,7 @@ import type { LogEntry } from "@/types";
 
 export const mockLogs: LogEntry[] = [
   {
-    _time: 1724323612592,
+    _time: "2024-08-22T10:46:52.592Z",
     cid: "api",
     channel: "conf:policies",
     level: "info",
@@ -19,7 +19,7 @@ export const mockLogs: LogEntry[] = [
     },
   },
   {
-    _time: 1724323576596,
+    _time: "2024-08-22T10:46:16.596Z",
     cid: "api",
     channel: "ShutdownMgr",
     level: "info",
@@ -27,7 +27,7 @@ export const mockLogs: LogEntry[] = [
     name: "ServiceRpcMgr.master",
   },
   {
-    _time: 1724323540596,
+    _time: "2024-08-22T10:45:40.596Z",
     cid: "api",
     channel: "telemetry",
     level: "error",
@@ -39,7 +39,7 @@ export const mockLogs: LogEntry[] = [
     },
   },
   {
-    _time: 1724323468596,
+    _time: "2024-08-22T10:44:28.596Z",
     cid: "api",
     channel: "Roles",
     level: "info",
@@ -48,7 +48,7 @@ export const mockLogs: LogEntry[] = [
     policies: ["POST /search/jobs/*/receive-results", "GET /search/jobs/*/stages/*/results"],
   },
   {
-    _time: 1724323396596,
+    _time: "2024-08-22T10:43:16.596Z",
     cid: "api",
     channel: "Service",
     level: "info",
@@ -58,7 +58,7 @@ export const mockLogs: LogEntry[] = [
     elapsed: 1564,
   },
   {
-    _time: 1724323252596,
+    _time: "2024-08-22T10:40:52.596Z",
     cid: "api",
     channel: "ProcessMetrics",
     level: "info",

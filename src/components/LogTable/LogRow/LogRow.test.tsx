@@ -4,7 +4,7 @@ import type { LogEntry } from "@/types";
 import { LogRow } from "./LogRow";
 
 const mockLog: LogEntry = {
-  _time: 1627890000000,
+  _time: "2021-08-02T07:40:00.000Z",
   message: "Test log message",
   level: "info",
 };
@@ -20,7 +20,9 @@ describe("LogRow", () => {
   it("renders log summary correctly", () => {
     render(<LogRow log={mockLog} />);
     expect(screen.getByText(/Test log message/)).toBeInTheDocument();
-    expect(screen.getByText(/2021-08-02T07:40:00.000Z/)).toBeInTheDocument();
+    // Check that the time column displays the ISO date
+    const timeElement = screen.getAllByText(/2021-08-02T07:40:00.000Z/)[0];
+    expect(timeElement).toBeInTheDocument();
   });
 
   it("expands and collapses details on click", () => {
@@ -36,6 +38,22 @@ describe("LogRow", () => {
     // Click to collapse
     fireEvent.click(screen.getByRole("button", { expanded: true }));
     expect(screen.queryByText(/"level": "info"/)).not.toBeInTheDocument();
+  });
+
+  it("displays formatted multiline JSON when expanded", () => {
+    render(<LogRow log={mockLog} />);
+    fireEvent.click(screen.getByRole("button", { expanded: false }));
+
+    // Use a selector that targets the pre tag specifically since _time appears in both summary and details
+    const pre = screen.getByText((content, element) => {
+      return element?.tagName === "PRE" && content.includes("_time");
+    });
+
+    // Check for indentation (2 spaces) and newlines
+    const content = pre.textContent || "";
+    expect(content).toContain(
+      '{\n  "_time": "2021-08-02T07:40:00.000Z",\n  "message": "Test log message",\n  "level": "info"\n}'
+    );
   });
 
   it("copies JSON to clipboard", () => {
