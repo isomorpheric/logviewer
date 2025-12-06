@@ -1,0 +1,14 @@
+.skeletonContainer {
+  padding: 0;
+}
+
+.skeletonRow {
+  display: flex;
+  gap: 8px;
+  padding: 4px 8px;
+  border-bottom: 1px solid var(--clr-surface-a30);
+}
+
+.skeletonEvent {
+  flex: 1;
+}

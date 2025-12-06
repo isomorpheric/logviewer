@@ -1,17 +1,15 @@
 import { useCallback, useEffect, useRef } from "react";
-import { LoadingSkeleton } from "@/components/ui/LoadingSkeleton";
 import { usePerformanceMetrics } from "@/contexts/PerformanceMetrics";
 import { useVirtualization } from "@/hooks";
 import type { LogEntry } from "@/types";
 import { LogRow } from "../LogRow";
 import styles from "./LogList.module.css";
+import { LogListSkeleton } from "./LogListSkeleton";
 
 interface Props {
   logs: LogEntry[];
   isLoading?: boolean;
 }
-
-const SKELETON_ROW_COUNT = 10;
 
 export const LogList = ({ logs, isLoading = false }: Props) => {
   const { recordFirstByte, recordFirstRender } = usePerformanceMetrics();
@@ -45,15 +43,7 @@ export const LogList = ({ logs, isLoading = false }: Props) => {
   return (
     <div ref={containerRef} role="rowgroup" className={styles.scrollContainer}>
       {showSkeleton ? (
-        <div className={styles.skeletonContainer}>
-          {Array.from({ length: SKELETON_ROW_COUNT }).map((_, index) => (
-            // biome-ignore lint/suspicious/noArrayIndexKey: Static skeleton rows never reorder
-            <div key={index} className={styles.skeletonRow}>
-              <LoadingSkeleton width="var(--col-time-width)" height="1em" />
-              <LoadingSkeleton height="1em" className={styles.skeletonEvent} />
-            </div>
-          ))}
-        </div>
+        <LogListSkeleton />
       ) : (
         <div className={styles.innerContainer} style={{ height: totalHeight }}>
           <div className={styles.visibleWindow} style={{ transform: `translateY(${offsetY}px)` }}>
