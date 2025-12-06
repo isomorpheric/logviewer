@@ -88,10 +88,23 @@
   border-radius: 2px 2px 0 0;
   transition: opacity var(--transition);
   min-height: 1px; /* Ensure visibility even for small counts */
+  cursor: pointer;
+  /* Reset button styles */
+  border: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+  color: inherit;
+  outline: none;
 }
 
 .bar:hover {
   opacity: 0.8;
+}
+
+.bar:focus-visible {
+  outline: 2px solid var(--app-accent);
+  outline-offset: 2px;
 }
 
 /* X-Axis */
