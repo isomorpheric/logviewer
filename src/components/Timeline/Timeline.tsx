@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import type { LogEntry } from "@/types";
 import styles from "./Timeline.module.css";
+import { TimelineSkeleton } from "./TimelineSkeleton";
 import {
   assignLogsToBuckets,
   calculateYAxisTicks,
@@ -13,9 +14,10 @@ interface Props {
   logs: LogEntry[];
   bucketCount?: number;
   height?: number;
+  isLoading?: boolean;
 }
 
-export const Timeline = ({ logs, bucketCount = 8, height = 120 }: Props) => {
+export const Timeline = ({ logs, bucketCount = 8, height = 120, isLoading = false }: Props) => {
   const chartData = useMemo(() => {
     const timeRange = getTimeRange(logs);
     if (!timeRange) return null;
@@ -28,6 +30,10 @@ export const Timeline = ({ logs, bucketCount = 8, height = 120 }: Props) => {
 
     return { bucketedData, yTicks, maxCount: actualMax };
   }, [logs, bucketCount]);
+
+  if (isLoading) {
+    return <TimelineSkeleton height={height} />;
+  }
 
   if (!chartData || logs.length === 0) {
     return (

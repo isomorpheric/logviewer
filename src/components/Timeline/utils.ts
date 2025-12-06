@@ -1,27 +1,5 @@
 import type { LogEntry } from "@/types";
-
-// ============================================================================
-// Types
-// ============================================================================
-
-export interface TimeBucket {
-  start: number;
-  end: number;
-}
-
-export interface BucketedData {
-  bucket: TimeBucket;
-  count: number;
-}
-
-export interface TimeRange {
-  min: number;
-  max: number;
-}
-
-// ============================================================================
-// Pure Utility Functions
-// ============================================================================
+import type { BucketedData, TimeBucket, TimeRange } from "./types";
 
 /**
  * Extracts the time range (min/max) from a list of log entries.
