@@ -16,7 +16,7 @@ interface UseLogStreamResult {
 
 export function useLogStream(url: string): UseLogStreamResult {
   const [logs, setLogs] = useState<LogEntry[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
   const [loadedBytes, setLoadedBytes] = useState(0);
   const [totalBytes, setTotalBytes] = useState<number | null>(null);
