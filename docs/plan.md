@@ -9,7 +9,7 @@ Refer to `docs/acceptance_criteria.md` for Acceptance Criteria and Constraints.
 - [x] `ndjsonParser`: chunked boundaries, bad lines skipped
 - [x] `useLogStream`: incremental emission, abort/retry paths
 - [x] Date formatting (ISO 8601)
-- [x] `src/utils/performanceMarks.ts` - centralized Performance API marks
+- [x] `src/utils/perf.ts` - centralized Performance API marks
 - [x] `PerformanceMetricsProvider` context for cross-cutting metrics
 - [x] `usePerformanceMetrics` hook for consuming TTFR
 
@@ -37,6 +37,11 @@ Refer to `docs/acceptance_criteria.md` for Acceptance Criteria and Constraints.
 - [x] Reusable Card component with theme variables
 - [x] Configurable padding (none, sm, md, lg)
 
+### Documentation & Cleanup
+- [x] **README.md**: Setup, Testing, Architecture, and Wishlist links.
+- [x] **Testing Docs**: Updated `docs/testing.md`.
+- [x] **Code Documentation**: READMEs in component/hook directories.
+
 ## 2. Architecture & Setup (Reference)
 
 Lightweight, performance-focused React application using Vite. Rely on custom hooks for streaming data fetching and a custom virtualization engine for rendering.
@@ -49,28 +54,11 @@ Lightweight, performance-focused React application using Vite. Rely on custom ho
 - **State/Logic**: Custom Hooks (no external state libs)
 
 ### Directory Structure
-- `src/components/`: UI components (`LogTable`, `Timeline`)
-- `src/hooks/`: Logic (`useLogStream`, `useVirtualization`, `useKeyboardNav`)
-- `src/utils/`: Helpers (`ndjsonParser`, `dateFormatter`)
+- `src/components/`: UI components (`LogTable`, `Timeline`, `StatusBar`)
+- `src/hooks/`: Logic (`useLogStream`, `useVirtualization`)
+- `src/utils/`: Helpers (`formatTime`, `perf`)
 
-## 3. Pending Tasks (Immediate)
-
-### Documentation Cleanup
-- **README.md**:
-  - Improve "Getting Started" section.
-  - Add explicit instructions on how to run tests.
-  - Add "How It Works" section linking to module-level READMEs.
-  - Link to the Wishlist in `docs/plan.md`.
-- **Testing Docs**:
-  - Review and update `docs/testing.md`.
-- **Critical Code Documentation (Collocated)**:
-  - Create or update `README.md` files in component/hook directories:
-    - `src/hooks/useLogStream/README.md`: Streaming logic & `ndjsonParser`.
-    - `src/hooks/useVirtualization/README.md`: Virtualization engine details.
-    - `src/contexts/README.md`: Performance metrics strategy.
-    - `src/components/Timeline/README.md`: Timeline aggregation logic.
-
-## 4. Wishlist (Future)
+## 3. Wishlist (Future)
 
 These are features I would add if I had more time.
 

@@ -42,7 +42,7 @@ This project was built with a strict focus on performance and minimal dependenci
 
 - **[Streaming Logic](src/hooks/useLogStream/README.md)**: How I fetch, chunk, and parse NDJSON.
 - **[Virtualization Engine](src/hooks/useVirtualization/README.md)**: Implementation of the variable-height scroll container.
-- **[Performance Metrics](src/contexts/README.md)**: How I track and display TTFR.
+- **[Performance Metrics](src/contexts/PerformanceMetrics/README.md)**: How I track and display TTFR.
 - **[Timeline Visualization](src/components/Timeline/README.md)**: Aggregation strategy for the bar chart.
 
 ## Features
@@ -60,9 +60,9 @@ See [docs/acceptance_criteria.md](docs/acceptance_criteria.md) for the full requ
 I use **Vitest** and **React Testing Library**. The suite covers unit logic (parsers), component interactions, and integration flows.
 
 ```bash
-npm run test        # Run all tests
+npm run test        # Run all tests (watch mode)
+npm run test:run    # Run all tests once
 npm run test:ui     # Open the Vitest UI
-npm run coverage    # Generate coverage report
 ```
 
 Refer to [docs/testing.md](docs/testing.md) for the detailed strategy.

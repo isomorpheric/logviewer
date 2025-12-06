@@ -12,8 +12,6 @@ The test suite uses **Vitest** as the test runner and **React Testing Library** 
   - Handles chunked data boundaries correctly.
   - Skips malformed or empty lines.
   - Returns valid `LogEntry` objects.
-- **`formatTime`**:
-  - Validates ISO 8601 output.
 
 ### 2. Hook Logic Tests (`src/hooks/**/*.test.tsx`)
 
@@ -43,12 +41,15 @@ The test suite uses **Vitest** as the test runner and **React Testing Library** 
 - **`app.integration.test.tsx`**:
   - Renders the full `App` with providers.
   - Verifies critical user flows (loading -> rendering -> interaction).
+- **`App.test.tsx`**:
+  - Basic smoke tests for main layout and role presence.
 
 ## Running Tests
 
 ```bash
-npm run test        # Run all tests
-npm run coverage    # Generate coverage report
+npm run test        # Run all tests (watch mode)
+npm run test:run    # Run all tests once
+npm run test:ui     # Open the Vitest UI
 ```
 
 ## Future Coverage Goals
