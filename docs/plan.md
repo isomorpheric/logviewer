@@ -21,7 +21,7 @@ Refer to `docs/acceptance_criteria.md` for Acceptance Criteria and Constraints.
 - [x] Track `isExpanded` per row; toggle via click or Enter/Space
 - [x] Pretty-print expanded view with `JSON.stringify(event, null, 2)`
 - [x] "Copy" Button for single-line and full pretty JSON
-- [x] `useVirtualization` hook with scroll/height tracking
+- [x] Virtualization using @tanstack/react-virtual
 - [x] Variable row heights via height map and ResizeObserver
 - [x] Overscan for smooth scrolling
 
@@ -44,7 +44,7 @@ Refer to `docs/acceptance_criteria.md` for Acceptance Criteria and Constraints.
 
 ## 2. Architecture & Setup (Reference)
 
-Lightweight, performance-focused React application using Vite. Rely on custom hooks for streaming data fetching and a custom virtualization engine for rendering.
+Lightweight, performance-focused React application using Vite. Rely on custom hooks for streaming data fetching and TanStack Virtual for rendering.
 
 ### Tech Stack
 - **Core**: React 19, TypeScript
@@ -55,7 +55,7 @@ Lightweight, performance-focused React application using Vite. Rely on custom ho
 
 ### Directory Structure
 - `src/components/`: UI components (`LogTable`, `Timeline`, `StatusBar`)
-- `src/hooks/`: Logic (`useLogStream`, `useVirtualization`)
+- `src/hooks/`: Logic (`useLogStream`)
 - `src/utils/`: Helpers (`formatTime`, `perf`)
 
 ## 3. Wishlist (Future)

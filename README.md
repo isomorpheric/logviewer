@@ -34,14 +34,14 @@ npm run dev
 This project was built with a strict focus on performance and minimal dependencies, adhering to the challenge constraints.
 
 - **No Heavy UI Frameworks**: Uses **CSS Modules** for zero-runtime overhead and scoped styling, avoiding the weight of Material UI or Tailwind.
-- **No External State Libraries**: All state is managed via **React Hooks** and **Context**. Complex logic is encapsulated in custom hooks like `useLogStream` and `useVirtualization`.
+- **No External State Libraries**: All state is managed via **React Hooks** and **Context**. Complex logic is encapsulated in custom hooks like `useLogStream`.
 - **Streaming First**: Data is parsed incrementally from the NDJSON stream. I do not wait for the full download; rows render as soon as bytes arrive.
-- **Custom Virtualization**: To handle thousands of logs with **variable row heights** (expanded vs. collapsed), I implemented a lightweight virtualization engine from scratch.
+- **Virtualization**: To handle thousands of logs with **variable row heights** (expanded vs. collapsed), I use **TanStack Virtual**. I initially built a custom engine but migrated for better stability and performance (see [ADR](src/hooks/useVirtualization/README.md)).
 
 ### Deep Dive Documentation
 
 - **[Streaming Logic](src/hooks/useLogStream/README.md)**: How I fetch, chunk, and parse NDJSON.
-- **[Virtualization Engine](src/hooks/useVirtualization/README.md)**: Implementation of the variable-height scroll container.
+- **[Virtualization Decision](src/hooks/useVirtualization/README.md)**: Why I switched from custom virtualization to TanStack Virtual.
 - **[Performance Metrics](src/contexts/PerformanceMetrics/README.md)**: How I track and display TTFR.
 - **[Timeline Visualization](src/components/Timeline/README.md)**: Aggregation strategy for the bar chart.
 

@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useRef } from "react";
+import { useVirtualizer } from "@tanstack/react-virtual";
+import { useEffect, useRef } from "react";
 import { usePerformanceMetrics } from "@/contexts/PerformanceMetrics";
-import { useVirtualization } from "@/hooks";
 import type { LogEntry } from "@/types";
 import { LogRow } from "../LogRow";
 import styles from "./LogList.module.css";
@@ -14,13 +14,14 @@ interface Props {
 export const LogList = ({ logs, isLoading = false }: Props) => {
   const { recordFirstByte, recordFirstRender } = usePerformanceMetrics();
   const hasRecordedMetrics = useRef(false);
+  const parentRef = useRef<HTMLDivElement>(null);
 
-  const { containerRef, startIndex, endIndex, totalHeight, offsetY, setRowHeight } =
-    useVirtualization({
-      itemCount: logs.length,
-      estimatedRowHeight: 28,
-      overscan: 5,
-    });
+  const rowVirtualizer = useVirtualizer({
+    count: logs.length,
+    getScrollElement: () => parentRef.current,
+    estimateSize: () => 28,
+    overscan: 5,
+  });
 
   useEffect(() => {
     if (logs.length > 0 && !hasRecordedMetrics.current) {
@@ -30,35 +31,33 @@ export const LogList = ({ logs, isLoading = false }: Props) => {
     }
   }, [logs.length, recordFirstByte, recordFirstRender]);
 
-  const handleRowHeightChange = useCallback(
-    (index: number) => (height: number) => {
-      setRowHeight(index, height);
-    },
-    [setRowHeight]
-  );
-
   const showSkeleton = isLoading && logs.length === 0;
-  const visibleLogs = logs.slice(startIndex, endIndex);
 
   return (
-    <div ref={containerRef} role="rowgroup" className={styles.scrollContainer}>
+    <div ref={parentRef} role="rowgroup" className={styles.scrollContainer}>
       {showSkeleton ? (
         <LogListSkeleton />
       ) : (
-        <div className={styles.innerContainer} style={{ height: totalHeight }}>
-          <div className={styles.visibleWindow} style={{ transform: `translateY(${offsetY}px)` }}>
-            {visibleLogs.map((log, localIndex) => {
-              const actualIndex = startIndex + localIndex;
-              return (
-                <LogRow
-                  key={`${log._time}-${actualIndex}`}
-                  log={log}
-                  index={actualIndex}
-                  onHeightChange={handleRowHeightChange(actualIndex)}
-                />
-              );
-            })}
-          </div>
+        <div
+          className={styles.innerContainer}
+          style={{ height: `${rowVirtualizer.getTotalSize()}px` }}
+        >
+          {rowVirtualizer.getVirtualItems().map((virtualItem) => {
+            const log = logs[virtualItem.index];
+            return (
+              <div
+                key={virtualItem.key}
+                data-index={virtualItem.index}
+                ref={rowVirtualizer.measureElement}
+                className={styles.virtualRow}
+                style={{
+                  transform: `translateY(${virtualItem.start}px)`,
+                }}
+              >
+                <LogRow log={log} index={virtualItem.index} />
+              </div>
+            );
+          })}
         </div>
       )}
     </div>
