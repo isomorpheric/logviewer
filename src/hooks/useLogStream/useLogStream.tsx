@@ -150,6 +150,7 @@ export function useLogStream(url: string): UseLogStreamResult {
     if (abortControllerRef.current) {
       abortControllerRef.current.abort();
       setIsLoading(false);
+      setError(new Error("aborted"));
     }
   }, []);
 

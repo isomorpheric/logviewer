@@ -4,6 +4,21 @@
 
 The test suite uses **Vitest** as the test runner and **React Testing Library** for component interaction. The strategy focuses on both unit logic (parsing, formatting) and component behavior (rendering, user interaction).
 
+## Test Files by Type
+
+### Component Tests
+- [`LogRow.test.tsx`](../src/components/LogTable/LogRow/LogRow.test.tsx) - Row expansion, formatting, and copy functionality
+- [`LogTable.test.tsx`](../src/components/LogTable/LogTable.test.tsx) - Table rendering, headers, virtualization, and accessibility
+- [`Timeline.test.tsx`](../src/components/Timeline/Timeline.test.tsx) - Timeline aggregation, SVG rendering, and empty states
+
+### Unit Tests
+- [`ndjsonParser.test.ts`](../src/hooks/useLogStream/ndjsonParser.test.ts) - NDJSON parsing logic, chunk boundaries, and error handling
+- [`useLogStream.test.tsx`](../src/hooks/useLogStream/useLogStream.test.tsx) - Streaming hook logic, abort/retry, and state management
+
+### Integration Tests
+- [`app.integration.test.tsx`](../src/tests/integration/app.integration.test.tsx) - Full app rendering and user flow verification
+- [`App.test.tsx`](../src/App.test.tsx) - Basic smoke tests for main application layout
+
 ## Current Coverage
 
 ### 1. Unit Tests (`src/**/*.test.ts`)

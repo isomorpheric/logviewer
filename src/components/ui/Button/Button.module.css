@@ -60,3 +60,13 @@
 .variant-destructive:hover {
   background-color: var(--clr-danger-a0);
 }
+
+.size-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+}
+
+.size-md {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}

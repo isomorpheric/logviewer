@@ -26,6 +26,7 @@ export function LogViewer({ fileUrl = DEFAULT_FILE_URL }: LogViewerProps) {
           totalBytes={totalBytes}
           logCount={logs.length}
           isLoading={isLoading}
+          isComplete={isComplete}
           error={error}
           onAbort={abort}
           onRetry={retry}

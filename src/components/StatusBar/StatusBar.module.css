@@ -12,6 +12,9 @@
   align-items: center;
   gap: 16px;
   flex-wrap: wrap;
+  width: 100%;
+  justify-content: space-between;
+  height: 24px;
 }
 
 .metric {
@@ -78,23 +81,4 @@
 .actions {
   display: flex;
   gap: 8px;
-}
-
-.button {
-  padding: 4px 12px;
-  background-color: var(--clr-surface-a10);
-  border: 1px solid var(--clr-surface-a40);
-  border-radius: 4px;
-  color: var(--app-text);
-  font-size: 12px;
-  cursor: pointer;
-  transition: background-color var(--transition);
-}
-
-.button:hover {
-  background-color: var(--clr-surface-a20);
-}
-
-.button:active {
-  background-color: var(--clr-surface-a30);
 }
