@@ -71,13 +71,13 @@ export function assignLogsToBuckets(logs: LogEntry[], buckets: TimeBucket[]): Bu
 }
 
 /**
- * Generates "nice" Y-axis tick values (e.g., 0, 100, 200, 300).
+ * Generates Y-axis tick values (e.g., 0, 100, 200, 300).
  * Produces evenly spaced ticks from 0 to a rounded max value.
  */
 export function calculateYAxisTicks(maxCount: number, tickCount: number): number[] {
   if (maxCount === 0) return [0];
 
-  // Round up to a "nice" number for the max
+  // Round up to a number for the max
   const magnitude = 10 ** Math.floor(Math.log10(maxCount));
   const niceMax = Math.ceil(maxCount / magnitude) * magnitude;
 

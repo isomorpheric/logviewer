@@ -1,5 +1,8 @@
 # Timeline Component
 
+> [!IMPORTANT]
+> In a real production application, I would have likely leaned on a charting library for the rendering. The logic to create the buckets would require only minimal refactor, if any.
+
 Bar chart showing log event distribution over time.
 
 ## Usage
@@ -23,6 +26,6 @@ logs → getTimeRange() → createTimeBuckets() → assignLogsToBuckets() → re
 
 - `getTimeRange()` - Extract min/max timestamps
 - `createTimeBuckets()` - Generate evenly-spaced time intervals
-- `assignLogsToBuckets()` - Count logs per bucket (O(n))
-- `calculateYAxisTicks()` - Generate "nice" axis labels
+- `assignLogsToBuckets()` - Count logs per bucket
+- `calculateYAxisTicks()` - Generate axis labels
 - `formatAxisTime()` - Format timestamps as `YYYY-MM-DD HH:MM:SS`
