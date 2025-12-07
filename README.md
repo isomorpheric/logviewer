@@ -1,6 +1,6 @@
 # Log Viewer
 
-A high-performance, streaming log viewer built with React 19.
+A high-performance, streaming log viewer built with React. It streams in logs and renders them in a virtualized table, with optimizations for TTFB and TTFR (for the row).
 
 ## Prerequisites
 
