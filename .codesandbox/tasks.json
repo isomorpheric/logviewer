@@ -16,7 +16,10 @@
     "start": {
       "name": "start",
       "command": "npm start",
-      "runAtStart": true
+      "runAtStart": true,
+      "preview": {
+        "port": 4173
+      }
     },
     "dev": {
       "name": "dev",
