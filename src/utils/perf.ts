@@ -46,6 +46,10 @@ function getTTFR(): number | null {
   }
 }
 
+/**
+ * Performance monitoring utilities using the Browser Performance API.
+ * Tracks metrics like Time to First Byte (TTFB) and Time to First Render (TTFR).
+ */
 export const perf = {
   clear,
   start,

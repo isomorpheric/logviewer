@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import { memo, useState } from "react";
+import { memo, type SVGProps, useState } from "react";
 import type { LogEntry } from "@/types";
 import { formatTime } from "@/utils/formatTime";
 import styles from "./LogRow.module.css";
@@ -41,7 +41,10 @@ export const LogRow = memo(({ log, index = 0 }: Props) => {
         onClick={toggleExpand}
         aria-expanded={isExpanded}
       >
-        <div className={styles.time}>{formattedTime}</div>
+        <div className={styles.time}>
+          <ChevronIcon className={clsx(styles.chevron, isExpanded && styles.chevronExpanded)} />
+          {formattedTime}
+        </div>
         <div className={styles.message}>{JSON.stringify(log)}</div>
       </button>
       {isExpanded && (
@@ -57,3 +60,18 @@ export const LogRow = memo(({ log, index = 0 }: Props) => {
     </div>
   );
 });
+
+const ChevronIcon = (props: SVGProps<SVGSVGElement>) => (
+  <svg
+    viewBox="0 0 24 24"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+    aria-hidden="true"
+    {...props}
+  >
+    <path d="M9 18l6-6-6-6" />
+  </svg>
+);
