@@ -17,6 +17,19 @@ vi.mock("@tanstack/react-virtual", () => ({
   }),
 }));
 
+/**
+ * Mock useWorkerSearch to avoid using real Web Workers in JSDOM environment.
+ *
+ * NOTE: In a full production environment, I'd mock the worker itself.
+ *
+ */
+vi.mock("@/hooks/useWorkerSearch", () => ({
+  useWorkerSearch: (allLogs: unknown[]) => ({
+    searchResults: allLogs, // Pass-through logs as if search matched everything
+    isSearching: false,
+  }),
+}));
+
 // Ensure cleanup after each test
 afterEach(() => {
   cleanup();
