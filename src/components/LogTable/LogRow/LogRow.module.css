@@ -60,21 +60,11 @@
   overflow-x: auto;
   color: var(--app-text);
   min-width: 0;
-  scrollbar-width: thin;
-  scrollbar-color: var(--clr-surface-a40) transparent;
+  scrollbar-width: none;
 }
 
 .message::-webkit-scrollbar {
-  height: 4px;
-}
-
-.message::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.message::-webkit-scrollbar-thumb {
-  background-color: var(--clr-surface-a40);
-  border-radius: var(--radius-xs);
+  display: none;
 }
 
 .details {
