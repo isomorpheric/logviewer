@@ -14,6 +14,14 @@ interface PerformanceMetricsProviderProps {
   children: ReactNode;
 }
 
+/**
+ * PerformanceMetricsProvider tracks and exposes key performance indicators.
+ *
+ * - **TTFB (Time to First Byte)**: Recorded when the first chunk of data is received.
+ * - **TTFR (Time to First Render)**: Recorded when the log list first mounts/renders data.
+ *
+ * It uses a centralized `perf` utility to capture high-precision timestamps.
+ */
 export function PerformanceMetricsProvider({ children }: PerformanceMetricsProviderProps) {
   const [ttfb, setTTFB] = useState<number | null>(null);
   const [ttfr, setTTFR] = useState<number | null>(null);

@@ -16,4 +16,11 @@ export const LogEntrySchema = z
   })
   .catchall(z.unknown());
 
+/**
+ * LogEntry represents a single parsed log event.
+ *
+ * Derived from Zod schema validation. The strict schema ensures type safety
+ * for known fields while `.catchall(z.unknown())` preserves extra properties
+ * often found in unstructured log data.
+ */
 export type LogEntry = z.infer<typeof LogEntrySchema>;

@@ -9,6 +9,14 @@ interface Props {
   index?: number;
 }
 
+/**
+ * LogRow displays a single log entry.
+ *
+ * Features:
+ * - Expandable detail view showing pretty-printed JSON.
+ * - "Copy JSON" functionality.
+ * - Memoized to prevent unnecessary re-renders during streaming updates.
+ */
 export const LogRow = memo(({ log, index = 0 }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const isEven = index % 2 === 0;

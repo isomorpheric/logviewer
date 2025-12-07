@@ -11,6 +11,13 @@ interface Props {
   isLoading?: boolean;
 }
 
+/**
+ * LogList renders the virtualized list of log entries.
+ *
+ * It uses @tanstack/react-virtual to handle large datasets efficiently by only rendering
+ * rows that are currently visible in the viewport. It also triggers performance metrics recording
+ * (TTFB/TTFR) when the first logs are rendered.
+ */
 export const LogList = ({ logs, isLoading = false }: Props) => {
   const { recordFirstByte, recordFirstRender } = usePerformanceMetrics();
   const hasRecordedMetrics = useRef(false);

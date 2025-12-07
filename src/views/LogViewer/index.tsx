@@ -12,6 +12,15 @@ interface LogViewerProps {
 
 const DEFAULT_FILE_URL = import.meta.env.VITE_LOG_FILE_URL;
 
+/**
+ * LogViewer is the main container view for the application.
+ *
+ * It orchestrates the data fetching via `useLogStream` and composes the
+ * main visualization components:
+ * - Timeline (Bar chart of log distribution)
+ * - LogTable (Virtualized list of logs)
+ * - StatusBar (Performance metrics and controls)
+ */
 export function LogViewer({ fileUrl = DEFAULT_FILE_URL }: LogViewerProps) {
   const { logs, isLoading, error, loadedBytes, totalBytes, abort, retry, isComplete } =
     useLogStream(fileUrl);

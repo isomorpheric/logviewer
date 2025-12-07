@@ -58,6 +58,19 @@ const ProgressBar = ({ progress }: { progress: number | null }) => {
   );
 };
 
+/**
+ * StatusBar displays real-time performance metrics and stream status.
+ *
+ * Metrics:
+ * - TTFB (Time to First Byte): Time from request start to first byte received.
+ * - TTFR (Time to First Render): Time until the first log row is painted.
+ * - Loaded: Bytes received vs Total bytes (if Content-Length is available).
+ * - Logs: Total number of parsed log entries.
+ *
+ * Controls:
+ * - Abort: Cancels the active stream.
+ * - Retry: Restarts the stream after an error.
+ */
 export const StatusBar = ({
   loadedBytes,
   totalBytes,
