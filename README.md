@@ -82,4 +82,4 @@ Given more time, I would implement the following features to enhance scalability
 2. **Export Data**: Download filtered or full datasets as `.json`/`.ndjson`.
 3. **Follow Mode**: Auto-scroll functionality for live monitoring.
 
-See the detailed [Wishlist & Implementation Plan in docs/WISHLISTS_PLAN.md](docs/WISHLISTS_PLAN.md) for the full roadmap.
+See the detailed [Wishlist Section of docs/plan.md](docs/plan.md#3-wishlist-future) for more.
