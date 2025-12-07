@@ -2,12 +2,10 @@ import { render, screen, waitFor } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import App from "@/App";
+import type { LogEntry } from "@/types";
 
 describe("App integration - Acceptance Criteria", () => {
   beforeEach(() => {
-    // Mock fetch using Vitest's recommended vi.stubGlobal
-    // Note: For production apps, consider using MSW (Mock Service Worker) for more robust API mocking
-    // See: https://vitest.dev/guide/mocking/requests.html
     vi.stubGlobal("fetch", vi.fn());
   });
 
@@ -66,19 +64,19 @@ describe("App integration - Acceptance Criteria", () => {
     render(<App />);
 
     // Wait for log to appear
-    let rowButton: HTMLElement;
-    await waitFor(() => {
+    const rowButton = await waitFor(() => {
       const singleLineJson = screen.getByText(/"level":"INFO"/);
       expect(singleLineJson).toBeInTheDocument();
 
       // Find the row button containing the log data
-      rowButton = singleLineJson.closest("button") as HTMLElement;
-      expect(rowButton).toBeInTheDocument();
-      expect(rowButton).toHaveAttribute("aria-expanded", "false");
+      const btn = singleLineJson.closest("button") as HTMLElement;
+      expect(btn).toBeInTheDocument();
+      expect(btn).toHaveAttribute("aria-expanded", "false");
+      return btn;
     });
 
     // Click to expand
-    await user.click(rowButton!);
+    await user.click(rowButton);
 
     // Verify row is now expanded - multiline JSON with proper formatting
     await waitFor(() => {
@@ -93,7 +91,7 @@ describe("App integration - Acceptance Criteria", () => {
     });
 
     // Collapse the row
-    await user.click(rowButton!);
+    await user.click(rowButton);
 
     // Verify it's collapsed again
     await waitFor(() => {
@@ -156,7 +154,7 @@ describe("App integration - Acceptance Criteria", () => {
 });
 
 // Helper functions for mocking fetch with streaming behavior
-function mockStreamingResponse(logs: any[], options?: { delay?: number }) {
+function mockStreamingResponse(logs: LogEntry[], options?: { delay?: number }) {
   const ndjson = logs.map((log) => JSON.stringify(log)).join("\n");
   const encoder = new TextEncoder();
   const stream = new ReadableStream({
@@ -182,7 +180,7 @@ function mockStreamingResponse(logs: any[], options?: { delay?: number }) {
   vi.stubGlobal("fetch", mockFetch);
 }
 
-function mockStreamingResponseInBatches(batches: any[][]) {
+function mockStreamingResponseInBatches(batches: LogEntry[][]) {
   const encoder = new TextEncoder();
   let batchIndex = 0;
 
@@ -191,7 +189,7 @@ function mockStreamingResponseInBatches(batches: any[][]) {
       const sendNextBatch = () => {
         if (batchIndex < batches.length) {
           const ndjson = batches[batchIndex].map((log) => JSON.stringify(log)).join("\n");
-          controller.enqueue(encoder.encode(ndjson + "\n"));
+          controller.enqueue(encoder.encode(`${ndjson}\n`));
           batchIndex++;
           setTimeout(sendNextBatch, 100);
         } else {
