@@ -1,1 +1,5 @@
-export { PerformanceMetricsProvider, usePerformanceMetrics } from "./PerformanceMetricsContext";
+export {
+  type PerformanceMetricsContextValue,
+  PerformanceMetricsProvider,
+  usePerformanceMetrics,
+} from "./PerformanceMetricsContext";

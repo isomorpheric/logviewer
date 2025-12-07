@@ -1,11 +1,12 @@
-import { createContext, type ReactNode, useCallback, useContext, useState } from "react";
-import { perf } from "@/utils";
+import { createContext, type ReactNode, useCallback, useContext, useRef, useState } from "react";
+import * as timing from "./timing";
 
-interface PerformanceMetricsContextValue {
+export interface PerformanceMetricsContextValue {
   ttfb: number | null;
   ttfr: number | null;
-  recordFirstByte: () => void;
-  recordFirstRender: () => void;
+  markFetchStart: () => void;
+  markFirstByte: () => void;
+  markFirstRender: () => void;
 }
 
 const PerformanceMetricsContext = createContext<PerformanceMetricsContextValue | null>(null);
@@ -15,38 +16,53 @@ interface PerformanceMetricsProviderProps {
 }
 
 /**
- * PerformanceMetricsProvider tracks and exposes key performance indicators.
+ * PerformanceMetricsProvider tracks and exposes key performance indicators
+ * using the browser's Performance API.
  *
- * - **TTFB (Time to First Byte)**: Recorded when the first chunk of data is received.
- * - **TTFR (Time to First Render)**: Recorded when the log list first mounts/renders data.
- *
- * It uses a centralized `perf` utility to capture high-precision timestamps.
+ * - **TTFB (Time to First Byte)**: Time from fetch start to first data chunk.
+ * - **TTFR (Time to First Render)**: Time from fetch start to first log row rendered.
  */
 export function PerformanceMetricsProvider({ children }: PerformanceMetricsProviderProps) {
   const [ttfb, setTTFB] = useState<number | null>(null);
   const [ttfr, setTTFR] = useState<number | null>(null);
+  const hasMarkedFirstByte = useRef(false);
 
-  const recordFirstByte = useCallback(() => {
-    setTTFB((current) => {
-      if (current !== null) return current;
-      return perf.getTTFB();
-    });
+  const markFetchStart = useCallback(() => {
+    timing.clearAllMarks();
+    setTTFB(null);
+    setTTFR(null);
+    hasMarkedFirstByte.current = false;
+    timing.markFetchStart();
   }, []);
 
-  const recordFirstRender = useCallback(() => {
+  const markFirstByte = useCallback(() => {
+    if (hasMarkedFirstByte.current) return;
+    hasMarkedFirstByte.current = true;
+
+    timing.markFirstByte();
+    setTTFB(timing.measureTTFB());
+  }, []);
+
+  const markFirstRender = useCallback(() => {
     setTTFR((current) => {
       if (current !== null) return current;
-      return perf.getTTFR();
+      timing.markFirstRender();
+      return timing.measureTTFR();
     });
   }, []);
 
   return (
-    <PerformanceMetricsContext.Provider value={{ ttfb, ttfr, recordFirstByte, recordFirstRender }}>
+    <PerformanceMetricsContext.Provider
+      value={{ ttfb, ttfr, markFetchStart, markFirstByte, markFirstRender }}
+    >
       {children}
     </PerformanceMetricsContext.Provider>
   );
 }
 
+/**
+ * usePerformanceMetrics provides access to the performance metrics context.
+ */
 export function usePerformanceMetrics(): PerformanceMetricsContextValue {
   const context = useContext(PerformanceMetricsContext);
   if (!context) {
