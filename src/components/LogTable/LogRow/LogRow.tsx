@@ -1,5 +1,5 @@
 import { clsx } from "clsx";
-import { useState } from "react";
+import { memo, useState } from "react";
 import type { LogEntry } from "@/types";
 import { formatTime } from "@/utils/formatTime";
 import styles from "./LogRow.module.css";
@@ -9,7 +9,7 @@ interface Props {
   index?: number;
 }
 
-export const LogRow = ({ log, index = 0 }: Props) => {
+export const LogRow = memo(({ log, index = 0 }: Props) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const isEven = index % 2 === 0;
 
@@ -48,4 +48,4 @@ export const LogRow = ({ log, index = 0 }: Props) => {
       )}
     </div>
   );
-};
+});
