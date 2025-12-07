@@ -148,11 +148,12 @@ export function useLogStream(url: string): UseLogStreamResult {
 
   const abort = useCallback(() => {
     if (abortControllerRef.current) {
+      flushRemainingBuffer();
       abortControllerRef.current.abort();
       setIsLoading(false);
-      setError(new Error("aborted"));
+      setError(new Error("Aborted"));
     }
-  }, []);
+  }, [flushRemainingBuffer]);
 
   const retry = useCallback(() => {
     streamLogs();

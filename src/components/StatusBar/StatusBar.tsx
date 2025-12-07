@@ -37,8 +37,6 @@ const Metric = ({
   value: string | number | null;
   unit?: string;
 }) => {
-  if (value === null) return;
-
   return (
     <span className={styles.metric}>
       <span className={styles.label}>{label}</span>
@@ -99,7 +97,7 @@ export const StatusBar = ({
         <ProgressBar progress={progress} />
         <Metric label="Logs:" value={formatNumber(logCount)} />
 
-        {isLoading && (
+        {isLoading && progress === null && (
           <span className={styles.status}>
             <span className={styles.loadingDot} />
             Loading...
