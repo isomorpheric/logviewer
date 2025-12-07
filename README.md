@@ -39,7 +39,7 @@ npm run dev
 
 This project was built with a strict focus on performance and minimal dependencies, adhering to the challenge constraints.
 
-- **No Heavy UI Frameworks**: Uses **CSS Modules** for zero-runtime overhead and scoped styling, avoiding the weight of Material UI or Tailwind.
+- **No Heavy UI Frameworks**: Uses **CSS Modules** for zero-runtime overhead.
 - **No External State Libraries**: All state is managed via **React Hooks** and **Context**. Complex logic is encapsulated in custom hooks like `useLogStream`.
 - **Streaming First**: Data is parsed incrementally from the NDJSON stream. I do not wait for the full download; rows render as soon as bytes arrive.
 - **Virtualization**: To handle thousands of logs with **variable row heights** (expanded vs. collapsed), I use **TanStack Virtual**. I initially built a custom engine but migrated for better stability and performance (see [ADR](src/hooks/useVirtualization/README.md)).
@@ -75,9 +75,11 @@ Refer to [docs/testing.md](docs/testing.md) for the detailed strategy.
 
 ## Trade-offs & Future Wishlist
 
-Given more time, I would implement:
-- **Preserved Expansion State**: A FIFO queue to remember which rows were expanded after they scroll off-screen.
-- **Advanced Filtering**: Client-side text search or log-level filtering.
-- **E2E Tests**: Playwright setup for full browser scrolling scenarios.
+Given more time, I would implement the following features to enhance scalability and developer experience.
 
-See the [Wishlist in docs/plan.md](docs/plan.md#4-wishlist-future) for a complete list.
+**Top Priorities:**
+1. **Client-Side Search & Facets (Web Worker)**: Offload regex search and facet aggregation to a worker thread to maintain 60fps scrolling.
+2. **Export Data**: Download filtered or full datasets as `.json`/`.ndjson`.
+3. **Follow Mode**: Auto-scroll functionality for live monitoring.
+
+See the detailed [Wishlist & Implementation Plan in docs/WISHLISTS_PLAN.md](docs/WISHLISTS_PLAN.md) for the full roadmap.

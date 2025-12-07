@@ -60,15 +60,17 @@ Lightweight, performance-focused React application using Vite. Rely on custom ho
 
 ## 3. Wishlist (Future)
 
-These are features I would add if I had more time.
 
-- **Expanded Row State**:
-  - Implement a FIFO queue (max 3) to preserve expanded state of rows when they scroll off-screen and back.
-- **Enhanced Error Handling**:
-  - Capture and display context for failed JSON lines.
-  - Improve UI feedback for stream interruptions.
-- **Additional Suggestions**:
-  - **Client-side Filter/Search**: text input to filter visible logs.
-  - **Log Level Highlighting**: Visual distinction for error/warn/info if detected in JSON.
-  - **Export**: Button to download currently loaded logs as a file.
-  - **Theme Toggle**: Persist Dark/Light mode preference.
+### High Impact
+- **Client-Side Search & Facets (via Web Worker)**:
+  - **Why**: Offloading parsing and filtering to a worker prevents the main thread from blocking (jank) during high-throughput updates or heavy regex searches.
+  - **What**: Fuzzy search, facet discovery (auto-detecting fields like `level` or `status`), and time-range filtering.
+- **Export Functionality**:
+  - Download currently filtered logs as `.json` or `.ndjson`.
+- **"Follow / Tail" Mode**:
+  - Auto-scroll to bottom as new logs arrive.
+
+### UX & Enhancements
+- **Keyboard Navigation**: `j`/`k` or Arrow keys to navigate and expand rows.
+- **Interactive Timeline**: Brush selection to filter logs by time range.
+- **Raw JSON Copy Dialog**: Dedicated modal for easy copying of large JSON objects.
