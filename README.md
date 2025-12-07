@@ -2,6 +2,12 @@
 
 A high-performance, streaming log viewer built with React 19.
 
+## Prerequisites
+
+Before running the project, ensure you have the following installed:
+
+- **Node.js**: v18 or higher (LTS recommended)
+
 ## Quick Start
 
 This application is optimized for **Fast Time-To-First-Byte (TTFB)** and **Time-To-First-Render (TTFR)**. To see it in its best light, I recommend running the production build.
