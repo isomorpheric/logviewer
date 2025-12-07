@@ -2,11 +2,11 @@
 
 ## Overview
 
-This module handles the fetching and parsing of the Newline Delimited JSON (NDJSON) log stream. It is designed to be resilient, performant, and provide real-time updates as data arrives.
+This module handles the fetching and parsing of a Newline Delimited JSON (NDJSON) log stream.
 
 ## Key Components
 
-### 1. `useLogStream(url: string)`
+### `useLogStream(url: string)`
 
 A custom React hook that manages the lifecycle of the log stream.
 
@@ -18,7 +18,7 @@ A custom React hook that manages the lifecycle of the log stream.
   - `progress`: `loaded` (bytes) and `total` (content-length) for progress bars.
   - `error`: Capture network or parsing errors (though individual bad lines are skipped).
 
-### 2. `ndjsonParser`
+### `ndjsonParser`
 
 A utility for incrementally parsing chunked NDJSON data.
 

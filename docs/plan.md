@@ -67,8 +67,7 @@ Lightweight, performance-focused React application using Vite. Rely on custom ho
   - **What**: Fuzzy search, facet discovery (auto-detecting fields like `level` or `status`), and time-range filtering.
 - **Export Functionality**:
   - Download currently filtered logs as `.json` or `.ndjson`.
-- **"Follow / Tail" Mode**:
-  - Auto-scroll to bottom as new logs arrive.
+
 
 ### UX & Enhancements
 - **Keyboard Navigation**: `j`/`k` or Arrow keys to navigate and expand rows.

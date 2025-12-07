@@ -46,10 +46,10 @@ This project was built with a strict focus on performance and minimal dependenci
 
 ### Deep Dive Documentation
 
-- **[Streaming Logic](src/hooks/useLogStream/README.md)**: How I fetch, chunk, and parse NDJSON.
-- **[Virtualization Decision](src/hooks/useVirtualization/README.md)**: Why I switched from custom virtualization to TanStack Virtual.
-- **[Performance Metrics](src/contexts/PerformanceMetrics/README.md)**: How I track and display TTFR.
-- **[Timeline Visualization](src/components/Timeline/README.md)**: Aggregation strategy for the bar chart.
+- **[Streaming Logic](src/hooks/useLogStream)**: How I fetch, chunk, and parse NDJSON.
+- **[Virtualization Decision](src/hooks/useVirtualization)**: Why I switched from custom virtualization to TanStack Virtual.
+- **[Performance Metrics](src/contexts/PerformanceMetrics)**: How I track and display TTFR.
+- **[Timeline Visualization](src/components/Timeline)**: Aggregation strategy for the bar chart.
 
 ## Features
 
@@ -78,8 +78,7 @@ Refer to [docs/testing.md](docs/testing.md) for the detailed strategy.
 Given more time, I would implement the following features to enhance scalability and developer experience.
 
 **Top Priorities:**
-1. **Client-Side Search & Facets (Web Worker)**: Offload regex search and facet aggregation to a worker thread to maintain 60fps scrolling.
-2. **Export Data**: Download filtered or full datasets as `.json`/`.ndjson`.
-3. **Follow Mode**: Auto-scroll functionality for live monitoring.
+- **Client-Side Search & Facets (Web Worker)**: Offload regex search and facet aggregation to a worker thread to maintain 60fps scrolling.
+- **Export Data**: Download filtered or full datasets as `.json`/`.ndjson`.
 
 See the detailed [Wishlist Section of docs/plan.md](docs/plan.md#3-wishlist-future) for more.
