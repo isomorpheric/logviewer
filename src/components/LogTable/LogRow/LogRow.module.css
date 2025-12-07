@@ -35,6 +35,22 @@
   width: var(--col-time-width);
   flex-shrink: 0;
   color: var(--clr-surface-a50);
+  display: flex;
+  align-items: center;
+}
+
+.chevron {
+  width: 12px;
+  height: 12px;
+  margin-right: var(--space-1);
+  flex-shrink: 0;
+  transition: transform var(--transition);
+  color: var(--clr-surface-a40);
+}
+
+.chevronExpanded {
+  transform: rotate(90deg);
+  color: var(--clr-surface-a50);
 }
 
 .message {
