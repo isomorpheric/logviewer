@@ -2,58 +2,39 @@
 
 ## Overview
 
-The test suite uses **Vitest** as the test runner and **React Testing Library** for component interaction. The strategy focuses on both unit logic (parsing, formatting) and component behavior (rendering, user interaction).
+The test suite uses **Vitest** as the test runner and **React Testing Library** for component interaction. It includes:
 
-## Current Coverage
-
-### 1. Unit Tests (`src/**/*.test.ts`)
-
-- **`ndjsonParser`**:
-  - Handles chunked data boundaries correctly.
-  - Skips malformed or empty lines.
-  - Returns valid `LogEntry` objects.
-- **`formatTime`**:
-  - Validates ISO 8601 output.
-
-### 2. Hook Logic Tests (`src/hooks/**/*.test.tsx`)
-
-- **`useLogStream`**:
-  - Simulates streaming `fetch` responses.
-  - Verifies state updates for `logs`, `loading`, and `progress`.
-  - Tests `abort` and `retry` functionality.
-  - Verifies error handling states.
-
-### 3. Component Tests (`src/components/**/*.test.tsx`)
-
-- **`LogRow`**:
-  - Toggles expansion state.
-  - Renders formatted time and JSON code blocks.
-  - Verifies "Copy" button interaction.
-- **`LogTable`**:
-  - Renders headers and row content.
-  - Integrates virtualization (mocked or shallow).
-  - Verifies ARIA roles and accessibility attributes.
-- **`Timeline`**:
-  - Verifies aggregation of logs into time buckets.
-  - Renders correct number of SVG bars.
-  - Handles empty states.
-
-### 4. Integration Tests (`src/tests/integration/`)
-
-- **`app.integration.test.tsx`**:
-  - Renders the full `App` with providers.
-  - Verifies critical user flows (loading -> rendering -> interaction).
+- **Unit Tests**: to test pure functions and utils
+- **Component Tests**: to test individual components with mocked deps
+- **Integration Tests**: to test for acceptance criteria and user flows
 
 ## Running Tests
 
 ```bash
-npm run test        # Run all tests
-npm run coverage    # Generate coverage report
+npm run test        # Run all tests (watch mode)
+npm run test:run    # Run all tests once
+npm run test:ui     # Open the Vitest UI
 ```
+
+## Test Files by Type
+
+### Component Tests
+- [`LogRow.test.tsx`](../src/components/LogTable/LogRow/LogRow.test.tsx)
+- [`LogTable.test.tsx`](../src/components/LogTable/LogTable.test.tsx)
+- [`Timeline.test.tsx`](../src/components/Timeline/Timeline.test.tsx)
+
+### Unit Tests
+- [`ndjsonParser.test.ts`](../src/hooks/useLogStream/ndjsonParser.test.ts)
+- [`useLogStream.test.tsx`](../src/hooks/useLogStream/useLogStream.test.tsx)
+
+### Integration Tests
+- [`app.integration.test.tsx`](../src/tests/integration/app.integration.test.tsx)
+- [`App.test.tsx`](../src/App.test.tsx)
+
+
 
 ## Future Coverage Goals
 
-- **E2E Tests**: Add Playwright tests to verify full browser behavior and scrolling performance.
-- **Accessibility**: Automated audits using `axe-core` during test runs.
-- **Visual Regression**: Snapshot testing for `LogTable` and `Timeline` states.
-- **Fuzz Testing**: Test `ndjsonParser` with random/corrupted input streams.
+- **E2E Tests**: Add Playwright or Cypress tests to verify full browser behavior
+- **Accessibility**: Automated audits using `axe-core` during test runs
+- **Visual Regression**: Snapshot testing for `LogTable` and `Timeline` states

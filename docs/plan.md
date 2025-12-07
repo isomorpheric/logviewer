@@ -9,7 +9,7 @@ Refer to `docs/acceptance_criteria.md` for Acceptance Criteria and Constraints.
 - [x] `ndjsonParser`: chunked boundaries, bad lines skipped
 - [x] `useLogStream`: incremental emission, abort/retry paths
 - [x] Date formatting (ISO 8601)
-- [x] `src/utils/performanceMarks.ts` - centralized Performance API marks
+- [x] `src/utils/perf.ts` - centralized Performance API marks
 - [x] `PerformanceMetricsProvider` context for cross-cutting metrics
 - [x] `usePerformanceMetrics` hook for consuming TTFR
 
@@ -21,7 +21,7 @@ Refer to `docs/acceptance_criteria.md` for Acceptance Criteria and Constraints.
 - [x] Track `isExpanded` per row; toggle via click or Enter/Space
 - [x] Pretty-print expanded view with `JSON.stringify(event, null, 2)`
 - [x] "Copy" Button for single-line and full pretty JSON
-- [x] `useVirtualization` hook with scroll/height tracking
+- [x] Virtualization using @tanstack/react-virtual
 - [x] Variable row heights via height map and ResizeObserver
 - [x] Overscan for smooth scrolling
 
@@ -37,9 +37,14 @@ Refer to `docs/acceptance_criteria.md` for Acceptance Criteria and Constraints.
 - [x] Reusable Card component with theme variables
 - [x] Configurable padding (none, sm, md, lg)
 
+### Documentation & Cleanup
+- [x] **README.md**: Setup, Testing, Architecture, and Wishlist links.
+- [x] **Testing Docs**: Updated `docs/testing.md`.
+- [x] **Code Documentation**: READMEs in component/hook directories.
+
 ## 2. Architecture & Setup (Reference)
 
-Lightweight, performance-focused React application using Vite. Rely on custom hooks for streaming data fetching and a custom virtualization engine for rendering.
+Lightweight, performance-focused React application using Vite. Rely on custom hooks for streaming data fetching and TanStack Virtual for rendering.
 
 ### Tech Stack
 - **Core**: React 19, TypeScript
@@ -49,38 +54,23 @@ Lightweight, performance-focused React application using Vite. Rely on custom ho
 - **State/Logic**: Custom Hooks (no external state libs)
 
 ### Directory Structure
-- `src/components/`: UI components (`LogTable`, `Timeline`)
-- `src/hooks/`: Logic (`useLogStream`, `useVirtualization`, `useKeyboardNav`)
-- `src/utils/`: Helpers (`ndjsonParser`, `dateFormatter`)
+- `src/components/`: UI components (`LogTable`, `Timeline`, `StatusBar`)
+- `src/hooks/`: Logic (`useLogStream`)
+- `src/utils/`: Helpers (`formatTime`, `perf`)
 
-## 3. Pending Tasks (Immediate)
+## 3. Wishlist (Future)
 
-### Documentation Cleanup
-- **README.md**:
-  - Improve "Getting Started" section.
-  - Add explicit instructions on how to run tests.
-  - Add "How It Works" section linking to module-level READMEs.
-  - Link to the Wishlist in `docs/plan.md`.
-- **Testing Docs**:
-  - Review and update `docs/testing.md`.
-- **Critical Code Documentation (Collocated)**:
-  - Create or update `README.md` files in component/hook directories:
-    - `src/hooks/useLogStream/README.md`: Streaming logic & `ndjsonParser`.
-    - `src/hooks/useVirtualization/README.md`: Virtualization engine details.
-    - `src/contexts/README.md`: Performance metrics strategy.
-    - `src/components/Timeline/README.md`: Timeline aggregation logic.
 
-## 4. Wishlist (Future)
+### High Impact
+- **Client-Side Search & Facets (via Web Worker)**:
+  - **Why**: Offloading parsing and filtering to a worker prevents the main thread from blocking (jank) during high-throughput updates or heavy regex searches.
+  - **What**: Fuzzy search, facet discovery (auto-detecting fields like `level` or `status`), and time-range filtering.
+- **Export Functionality**:
+  - Download currently filtered logs as `.json` or `.ndjson`.
+- **"Follow / Tail" Mode**:
+  - Auto-scroll to bottom as new logs arrive.
 
-These are features I would add if I had more time.
-
-- **Expanded Row State**:
-  - Implement a FIFO queue (max 3) to preserve expanded state of rows when they scroll off-screen and back.
-- **Enhanced Error Handling**:
-  - Capture and display context for failed JSON lines.
-  - Improve UI feedback for stream interruptions.
-- **Additional Suggestions**:
-  - **Client-side Filter/Search**: text input to filter visible logs.
-  - **Log Level Highlighting**: Visual distinction for error/warn/info if detected in JSON.
-  - **Export**: Button to download currently loaded logs as a file.
-  - **Theme Toggle**: Persist Dark/Light mode preference.
+### UX & Enhancements
+- **Keyboard Navigation**: `j`/`k` or Arrow keys to navigate and expand rows.
+- **Interactive Timeline**: Brush selection to filter logs by time range.
+- **Raw JSON Copy Dialog**: Dedicated modal for easy copying of large JSON objects.

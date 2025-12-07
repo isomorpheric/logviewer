@@ -18,6 +18,16 @@ export interface UseVirtualizationResult {
 const DEFAULT_ROW_HEIGHT = 28;
 const DEFAULT_OVERSCAN = 5;
 
+/**
+ * @deprecated This hook is no longer used and has been replaced by @tanstack/react-virtual.
+ *
+ * Reasons for deprecation:
+ * 1. Maintenance Overhead: Maintaining a custom virtualization engine (handling scroll syncing, dynamic measurements, browser quirks) is non-trivial and distracts from core features.
+ * 2. Scalability: The custom implementation relies on linear scanning ($O(N)$), which degrades performance with large datasets. TanStack Virtual optimizes this with binary search ($O(\log N)$).
+ * 3. Edge Cases: Commercial-grade libraries solve complex issues like scroll anchoring, resize observation, and cross-browser inconsistencies out of the box.
+ *
+ * Kept for reference purposes only.
+ */
 export function useVirtualization({
   itemCount,
   estimatedRowHeight = DEFAULT_ROW_HEIGHT,

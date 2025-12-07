@@ -1,11 +1,18 @@
-# useVirtualization
+# useVirtualization [DEPRECATED]
 
-> [!IMPORTANT]
-> In a real production application, I would have used a library for this - like [Tanstack Virtual](https://tanstack.com/virtual/latest).
+> [!WARNING]
+> **Deprecated in favor of [TanStack Virtual](https://tanstack.com/virtual/latest).**
+>
+> **Why:**
+> 1. **Maintenance Overhead**: Maintaining a custom virtualization engine (handling scroll syncing, dynamic measurements, browser quirks) is non-trivial and distracts from core features.
+> 2. **Scalability**: The custom implementation relies on linear scanning ($O(N)$), which degrades performance with large datasets. TanStack Virtual optimizes this with binary search ($O(\log N)$).
+> 3. **Edge Cases**: Commercial-grade libraries solve complex issues like scroll anchoring, resize observation, and cross-browser inconsistencies out of the box.
+>
+> I kept the code for reference only and because I was very invested in doing this challenge with minimal deps, but in the end decided that it's worth having this very small dependency.
 
 ## Overview
 
-A custom virtualization engine designed to render large lists of items with variable heights efficiently. It ensures that only the visible items (plus a small overscan buffer) are rendered to the DOM, keeping the application responsive even with thousands of logs.
+A custom virtualization engine designed to render large items efficiently.
 
 ## How It Works
 

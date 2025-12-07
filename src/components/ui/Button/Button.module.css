@@ -4,8 +4,8 @@
   justify-content: center;
   border-radius: var(--radius);
   font-weight: 500;
-  font-size: 0.875rem;
-  padding: 0.5rem 1rem;
+  font-size: var(--font-base);
+  padding: var(--space-2) var(--space-4);
   cursor: pointer;
   transition:
     background-color 0.2s,
@@ -59,4 +59,14 @@
 
 .variant-destructive:hover {
   background-color: var(--clr-danger-a0);
+}
+
+.size-sm {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+}
+
+.size-md {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
 }

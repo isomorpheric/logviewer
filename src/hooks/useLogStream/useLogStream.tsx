@@ -14,9 +14,20 @@ interface UseLogStreamResult {
   isComplete: boolean;
 }
 
+/**
+ * useLogStream is a custom hook that manages the streaming fetch of log data.
+ *
+ * Key Features:
+ * - **Streaming**: Consumes the response body incrementally using `ReadableStream`.
+ * - **Buffering**: Handles partial JSON lines across chunks (NDJSON).
+ * - **Resilience**: Supports aborting and retrying the stream.
+ * - **Performance**: Appends parsed logs to state immediately to enable rapid initial rendering.
+ *
+ * @param url - The URL of the NDJSON log file.
+ */
 export function useLogStream(url: string): UseLogStreamResult {
   const [logs, setLogs] = useState<LogEntry[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
   const [loadedBytes, setLoadedBytes] = useState(0);
   const [totalBytes, setTotalBytes] = useState<number | null>(null);
@@ -148,10 +159,12 @@ export function useLogStream(url: string): UseLogStreamResult {
 
   const abort = useCallback(() => {
     if (abortControllerRef.current) {
+      flushRemainingBuffer();
       abortControllerRef.current.abort();
       setIsLoading(false);
+      setError(new Error("Aborted"));
     }
-  }, []);
+  }, [flushRemainingBuffer]);
 
   const retry = useCallback(() => {
     streamLogs();

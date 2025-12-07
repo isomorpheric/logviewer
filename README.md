@@ -2,6 +2,12 @@
 
 A high-performance, streaming log viewer built with React 19.
 
+## Prerequisites
+
+Before running the project, ensure you have the following installed:
+
+- **Node.js**: v18 or higher (LTS recommended)
+
 ## Quick Start
 
 This application is optimized for **Fast Time-To-First-Byte (TTFB)** and **Time-To-First-Render (TTFR)**. To see it in its best light, I recommend running the production build.
@@ -33,16 +39,16 @@ npm run dev
 
 This project was built with a strict focus on performance and minimal dependencies, adhering to the challenge constraints.
 
-- **No Heavy UI Frameworks**: Uses **CSS Modules** for zero-runtime overhead and scoped styling, avoiding the weight of Material UI or Tailwind.
-- **No External State Libraries**: All state is managed via **React Hooks** and **Context**. Complex logic is encapsulated in custom hooks like `useLogStream` and `useVirtualization`.
+- **No Heavy UI Frameworks**: Uses **CSS Modules** for zero-runtime overhead.
+- **No External State Libraries**: All state is managed via **React Hooks** and **Context**. Complex logic is encapsulated in custom hooks like `useLogStream`.
 - **Streaming First**: Data is parsed incrementally from the NDJSON stream. I do not wait for the full download; rows render as soon as bytes arrive.
-- **Custom Virtualization**: To handle thousands of logs with **variable row heights** (expanded vs. collapsed), I implemented a lightweight virtualization engine from scratch.
+- **Virtualization**: To handle thousands of logs with **variable row heights** (expanded vs. collapsed), I use **TanStack Virtual**. I initially built a custom engine but migrated for better stability and performance (see [ADR](src/hooks/useVirtualization/README.md)).
 
 ### Deep Dive Documentation
 
 - **[Streaming Logic](src/hooks/useLogStream/README.md)**: How I fetch, chunk, and parse NDJSON.
-- **[Virtualization Engine](src/hooks/useVirtualization/README.md)**: Implementation of the variable-height scroll container.
-- **[Performance Metrics](src/contexts/README.md)**: How I track and display TTFR.
+- **[Virtualization Decision](src/hooks/useVirtualization/README.md)**: Why I switched from custom virtualization to TanStack Virtual.
+- **[Performance Metrics](src/contexts/PerformanceMetrics/README.md)**: How I track and display TTFR.
 - **[Timeline Visualization](src/components/Timeline/README.md)**: Aggregation strategy for the bar chart.
 
 ## Features
@@ -60,18 +66,20 @@ See [docs/acceptance_criteria.md](docs/acceptance_criteria.md) for the full requ
 I use **Vitest** and **React Testing Library**. The suite covers unit logic (parsers), component interactions, and integration flows.
 
 ```bash
-npm run test        # Run all tests
+npm run test        # Run all tests (watch mode)
+npm run test:run    # Run all tests once
 npm run test:ui     # Open the Vitest UI
-npm run coverage    # Generate coverage report
 ```
 
 Refer to [docs/testing.md](docs/testing.md) for the detailed strategy.
 
 ## Trade-offs & Future Wishlist
 
-Given more time, I would implement:
-- **Preserved Expansion State**: A FIFO queue to remember which rows were expanded after they scroll off-screen.
-- **Advanced Filtering**: Client-side text search or log-level filtering.
-- **E2E Tests**: Playwright setup for full browser scrolling scenarios.
+Given more time, I would implement the following features to enhance scalability and developer experience.
 
-See the [Wishlist in docs/plan.md](docs/plan.md#4-wishlist-future) for a complete list.
+**Top Priorities:**
+1. **Client-Side Search & Facets (Web Worker)**: Offload regex search and facet aggregation to a worker thread to maintain 60fps scrolling.
+2. **Export Data**: Download filtered or full datasets as `.json`/`.ndjson`.
+3. **Follow Mode**: Auto-scroll functionality for live monitoring.
+
+See the detailed [Wishlist & Implementation Plan in docs/WISHLISTS_PLAN.md](docs/WISHLISTS_PLAN.md) for the full roadmap.

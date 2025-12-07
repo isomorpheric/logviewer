@@ -6,27 +6,13 @@
 
 .innerContainer {
   position: relative;
+  width: 100%;
 }
 
-.visibleWindow {
+.virtualRow {
   position: absolute;
   top: 0;
   left: 0;
-  right: 0;
+  width: 100%;
   will-change: transform;
-}
-
-.skeletonContainer {
-  padding: 0;
-}
-
-.skeletonRow {
-  display: flex;
-  gap: 8px;
-  padding: 4px 8px;
-  border-bottom: 1px solid var(--clr-surface-a30);
-}
-
-.skeletonEvent {
-  flex: 1;
 }

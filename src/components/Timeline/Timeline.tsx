@@ -18,6 +18,16 @@ interface Props {
   isLoading?: boolean;
 }
 
+/**
+ * Timeline visualizes the distribution of log events over time.
+ *
+ * It aggregates logs into time-based "buckets" and renders a bar chart.
+ * It will use the min date and max date to create the buckets.
+ *
+ * @param logs - The full array of log entries to visualize.
+ * @param bucketCount - Number of bars to display (default: 8).
+ * @param height - Height of the chart in pixels.
+ */
 export const Timeline = ({ logs, bucketCount = 8, height = 120, isLoading = false }: Props) => {
   const [tooltip, setTooltip] = useState<{
     visible: boolean;
