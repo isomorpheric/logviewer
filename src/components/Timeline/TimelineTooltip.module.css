@@ -14,8 +14,8 @@
 .tooltipContent {
   display: flex;
   align-items: baseline;
-  gap: 0.25rem;
-  font-size: 0.875rem;
+  gap: var(--space-1);
+  font-size: var(--font-base);
 }
 
 .count {
@@ -24,6 +24,6 @@
 }
 
 .label {
-  color: var(--clr-surface-a70);
-  font-size: 0.8125rem;
+  color: var(--clr-surface-a50);
+  font-size: var(--font-sm);
 }

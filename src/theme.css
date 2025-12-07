@@ -51,7 +51,28 @@
   --clr-info-a20: #92b2e5;
 
   /* Global defaults */
-  --radius: 0.5rem;
+  /* Spacing Tokens */
+  --space-1: 0.25rem; /* 4px */
+  --space-1_5: 0.375rem; /* 6px */
+  --space-2: 0.5rem; /* 8px */
+  --space-3: 0.75rem; /* 12px */
+  --space-4: 1rem; /* 16px */
+  --space-6: 1.5rem; /* 24px */
+  --space-8: 2rem; /* 32px */
+
+  /* Typography Tokens */
+  --font-xxs: 0.625rem; /* 10px */
+  --font-xs: 0.75rem; /* 12px */
+  --font-sm: 0.8125rem; /* 13px */
+  --font-base: 0.875rem; /* 14px */
+  --font-md: 1rem; /* 16px */
+
+  /* Radius Tokens */
+  --radius-xs: 2px;
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius: var(--radius-md);
+
   --transition: 180ms ease-in-out;
 
   /* Using system fonts for performance */

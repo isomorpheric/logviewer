@@ -4,8 +4,8 @@
 
 .skeletonRow {
   display: flex;
-  gap: 8px;
-  padding: 4px 8px;
+  gap: var(--space-2);
+  padding: var(--space-1) var(--space-2);
   border-bottom: 1px solid var(--clr-surface-a30);
 }
 

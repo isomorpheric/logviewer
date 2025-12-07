@@ -1,7 +1,7 @@
 .row {
   border-bottom: 1px solid var(--clr-surface-a30);
   font-family: monospace;
-  font-size: 12px;
+  font-size: var(--font-xs);
   background-color: var(--clr-surface-a0);
 }
 
@@ -19,7 +19,7 @@
   font-size: inherit;
   color: inherit;
   cursor: pointer;
-  padding: 4px 8px;
+  padding: var(--space-1) var(--space-2);
 }
 
 .summary:hover {
@@ -39,7 +39,7 @@
 
 .message {
   flex: 1;
-  padding-left: 8px;
+  padding-left: var(--space-2);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -47,22 +47,22 @@
 }
 
 .details {
-  padding: 8px;
+  padding: var(--space-2);
   background-color: var(--clr-surface-a10);
   overflow-x: auto;
 }
 
 .actions {
-  margin-bottom: 8px;
+  margin-bottom: var(--space-2);
 }
 
 .copyButton {
-  padding: 4px 8px;
+  padding: var(--space-1) var(--space-2);
   background-color: var(--clr-surface-a0);
   border: 1px solid var(--clr-surface-a40);
-  border-radius: 4px;
+  border-radius: var(--radius-sm);
   cursor: pointer;
-  font-size: 11px;
+  font-size: var(--font-xs);
   color: var(--app-text);
 }
 
