@@ -1,5 +1,7 @@
 # Log Viewer
 
+🔗 [Link to Code Sandbox](https://codesandbox.io/p/github/isomorpheric/logviewer-code-sandbox/main)
+
 A high-performance, streaming log viewer built with React. It streams in logs and renders them in a virtualized table, with optimizations for TTFB and TTFR (for the row).
 
 ## Prerequisites
