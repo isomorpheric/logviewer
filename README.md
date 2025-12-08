@@ -49,7 +49,7 @@ This project was built with a strict focus on performance and minimal dependenci
 
 - **[Streaming Logic](src/hooks/useLogStream)**: How I fetch, chunk, and parse NDJSON.
 - **[Virtualization Decision](src/hooks/useVirtualization)**: Why I switched from custom virtualization to TanStack Virtual.
-- **[Performance Metrics](src/lib/performanceMetrics)**: How I track and display TTFR.
+- **[Performance Metrics](src/contexts/performanceMetrics)**: How I track and display TTFR.
 - **[Timeline Visualization](src/components/Timeline)**: Aggregation strategy for the bar chart.
 
 ## Features
