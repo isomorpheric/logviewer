@@ -2,10 +2,29 @@
   display: flex;
   flex-direction: column;
   height: 100dvh;
-  justify-content: center;
+  /* Removed justify-content: center; to allow natural stacking from top */
   align-items: center;
   gap: var(--space-4);
   padding: var(--space-4);
+}
+
+.toolbar {
+  width: 100%;
+  max-width: 1200px; /* Match LogTable max-width if possible, or keep fluid */
+  display: flex;
+  justify-content: center;
+  min-height: 40px; /* Prevent layout shift when search loads */
+}
+
+.statusMessage {
+  font-size: var(--font-sm);
+  color: var(--clr-surface-tonal-a40);
+  font-style: italic;
+}
+
+.searchPlaceholder {
+  font-size: var(--font-sm);
+  color: var(--clr-surface-tonal-a40);
 }
 
 .title {
